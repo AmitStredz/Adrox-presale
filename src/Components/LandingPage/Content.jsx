@@ -1,16 +1,25 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
-
-// import Box from "@mui/material/Box";
+import React, { useEffect, useState } from "react";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import "./LandingPage.css";
 import "./modal.css";
 import { ImagePaths } from "../ImagePath";
-import { InputAdornment, TextField, useMediaQuery } from "@mui/material";
-
+import {
+  Container,
+  InputAdornment,
+  TextField,
+  useMediaQuery,
+} from "@mui/material";
+import RoadMap from "../../Assets/Roadmap_Final_File.webp";
+import WhitePaper1 from "../../Assets/whitePaper1.webp";
+import WhitePaper2 from "../../Assets/whitePaper2.webp";
 import Spiral from "../../Assets/SpiralLogo.svg";
 import Planet from "../../Assets/planets.svg";
+import WhitePaper from "../../Assets/Whitepaper Ver One.pdf";
+import ProfileSection from "./ProfileSection";
+import ProfileSectionMobile from "./ProfileSectionMobile";
 import GroupIcon from "../../Assets/Group.svg";
 import ProtoColIcon from "../../Assets/Protocol Icon.svg";
 import USDTIcon from "../../Assets/usdt.jpg";
@@ -39,19 +48,6 @@ import CopyIcon from "./CopyIcon";
 import CloseIcon from "./CloseIcon";
 
 import ErrorModal from "./errorModal";
-
-import Part1 from "./contentPages/part1"
-import Part2 from "./contentPages/part2"
-import Part3 from "./contentPages/part3"
-import Part4 from "./contentPages/part4";
-
-const Container = lazy(() => import("@mui/material/Container"));
-const Box = lazy(() => import("@mui/material/Box"));
-
-// const Part1 = lazy(() => import("./contentPages/part1"));
-// const Part2 = lazy(() => import("./contentPages/part2"));
-// const Part3 = lazy(() => import("./contentPages/part3"));
-// const Part4 = lazy(() => import("./contentPages/part4"));
 
 // Polyfill Buffer for the browser
 window.Buffer = window.Buffer || Buffer;
@@ -364,8 +360,8 @@ function Content() {
     if (isloading) return;
     setIsLoading(true);
 
-    if (dollarValue <= 0) {
-      setErrorText("Enter a valid amount");
+    if(dollarValue <= 0){
+      setErrorText("Enter a valid amount")
       setIsErrorModal(true);
       setIsLoading(false);
       return;
@@ -572,7 +568,7 @@ function Content() {
           console.error("Error code:", error?.error);
         }
         if (error?.message) {
-          setErrorText("There was some error. Please try again later.");
+            setErrorText("There was some error. Please try again later.");
 
           setIsErrorModal(true);
           console.error("Error message:", error.message);
@@ -768,130 +764,125 @@ function Content() {
           "linear-gradient(180deg, rgba(49,21,96,1) 0%, rgba(21,7,32,1) 100%)",
       }}
     >
-      <Suspense fallback="Loading...">
-        <Container>
-          <Grid
-            container
-            spacing={3}
-            className="top-sectio"
-            position={"relative"}
+      <Container>
+        <Grid
+          container
+          spacing={3}
+          className="top-sectio"
+          position={"relative"}
+        >
+          <Box
+            position={"absolute"}
+            top={0}
+            bottom={0}
+            right={0}
+            left={0}
+            zIndex={10}
+            sx={{
+              img: {
+                width: { xs: "100%", sm: "100%", md: "-webkit-fill-available" },
+                opacity: 0.5,
+              },
+            }}
           >
+            <img src={Spiral} alt="" />
+          </Box>
+          <Box
+            position={"absolute"}
+            // top={0}
+            bottom={-100}
+            right={0}
+            left={0}
+            zIndex={1}
+            display={{ xs: "none", sm: "none", md: "block" }}
+          >
+            <img src={Planet} alt="" />
+          </Box>
+          <Grid item xs={12} md={6} className="heroContent">
             <Box
-              position={"absolute"}
-              top={0}
-              bottom={0}
-              right={0}
-              left={0}
-              zIndex={10}
+              display={"grid"}
               sx={{
                 img: {
-                  width: {
-                    xs: "100%",
-                    sm: "100%",
-                    md: "-webkit-fill-available",
-                  },
-                  opacity: 0.5,
+                  height: { xs: 60, sm: "auto", md: "auto" },
                 },
+                placeItems: { xs: "center", sm: "center", md: "inherit" },
               }}
+              // data-aos="fade-in"
+              //               data-aos-duration="1000"
             >
-              <img src={Spiral} alt="" />
+              <img src={ImagePaths.Text.default} alt="ADROX" className="" />
             </Box>
+            <Typography
+              component={"h5"}
+              fontSize={30}
+              textAlign={{ xs: "center", sm: "center", md: "left" }}
+              textTransform={"capitalize"}
+              sx={{ wordSpacing: "4px", letterSpacing: "2px" }}
+              pt={1}
+              color={"#fff"}
+              fontFamily={`Gilroy Light`}
+              marginTop={"25px"}
+              fontWeight={489}
+              // data-aos="fade-in"
+              // data-aos-duration="1000"
+            >
+              Automated Decentralized Resource Optimization Exchange Wallet
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={6}>
             <Box
-              position={"absolute"}
-              // top={0}
-              bottom={-100}
-              right={0}
-              left={0}
-              zIndex={1}
-              display={{ xs: "none", sm: "none", md: "block" }}
+              border={"1px solid #fff"}
+              borderRadius={8}
+              position={"relative"}
+              zIndex={40}
+              p={{ xs: "24px", sm: "32px", md: "48px" }}
+              m={{ xs: "0 16px", sm: "0 16px", md: "0 30px 0 131px" }}
+              sx={{
+                background:
+                  "linear-gradient(180deg, #8d5bff80 8%, #ffffff 143%)",
+              }}
+              // data-aos="fade-in"
+              // data-aos-duration="1000"
             >
-              <img src={Planet} alt="" />
-            </Box>
-            <Grid item xs={12} md={6} className="heroContent">
-              <Box
-                display={"grid"}
-                sx={{
-                  img: {
-                    height: { xs: 60, sm: "auto", md: "auto" },
-                  },
-                  placeItems: { xs: "center", sm: "center", md: "inherit" },
-                }}
-                // data-aos="fade-in"
-                //               data-aos-duration="1000"
-              >
-                <img src={ImagePaths.Text.default} alt="ADROX" className="" />
+              <Box textAlign={"center"}>
+                <Typography
+                  variant="h6"
+                  fontWeight="bold"
+                  color={"#fff"}
+                  fontFamily={`Gilroy Bold`}
+                  fontSize={30}
+                >
+                  Presale is live now
+                </Typography>
+                <Typography
+                  variant="h4"
+                  fontWeight="bold"
+                  color={"#fff"}
+                  // paddingTop={"20px"}
+                  fontFamily={`Gilroy Bold`}
+                  fontSize={40}
+                  paddingBottom={"0.7rem"}
+                >
+                  1 ADX = 0.05$
+                </Typography>
               </Box>
-              <Typography
-                component={"h5"}
-                fontSize={30}
-                textAlign={{ xs: "center", sm: "center", md: "left" }}
-                textTransform={"capitalize"}
-                sx={{ wordSpacing: "4px", letterSpacing: "2px" }}
-                pt={1}
-                color={"#fff"}
-                fontFamily={`Gilroy Light`}
-                marginTop={"25px"}
-                fontWeight={489}
-                // data-aos="fade-in"
-                // data-aos-duration="1000"
-              >
-                Automated Decentralized Resource Optimization Exchange Wallet
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Box
-                border={"1px solid #fff"}
-                borderRadius={8}
-                position={"relative"}
-                zIndex={40}
-                p={{ xs: "24px", sm: "32px", md: "48px" }}
-                m={{ xs: "0 16px", sm: "0 16px", md: "0 30px 0 131px" }}
-                sx={{
-                  background:
-                    "linear-gradient(180deg, #8d5bff80 8%, #ffffff 143%)",
-                }}
-                // data-aos="fade-in"
-                // data-aos-duration="1000"
-              >
-                <Box textAlign={"center"}>
-                  <Typography
-                    variant="h6"
-                    fontWeight="bold"
-                    color={"#fff"}
-                    fontFamily={`Gilroy Bold`}
-                    fontSize={30}
-                  >
-                    Presale is live now
-                  </Typography>
-                  <Typography
-                    variant="h4"
-                    fontWeight="bold"
-                    color={"#fff"}
-                    // paddingTop={"20px"}
-                    fontFamily={`Gilroy Bold`}
-                    fontSize={40}
-                    paddingBottom={"0.7rem"}
-                  >
-                    1 ADX = 0.05$
-                  </Typography>
-                </Box>
-                <Grid spacing={2} mt={3} marginTop={"1px"}>
-                  <Grid spacing={2} item xs={12}>
-                    <div className="flex gap-3">
-                      {["USDT", "BNB", "SOL"].map((currency) => (
-                        <Button
-                          key={currency}
-                          variant="contained"
-                          onClick={() => handleButtonClick(currency)}
-                          fullWidth
-                          sx={buttonStyles(currency)}
-                          fontFamily={`Gilroy Light`}
-                          fontSize={19}
-                        >
-                          {currency}
-                        </Button>
-                      ))}
-                      {/* <Button
+              <Grid spacing={2} mt={3} marginTop={"1px"}>
+                <Grid spacing={2} item xs={12}>
+                  <div className="flex gap-3">
+                    {["USDT", "BNB", "SOL"].map((currency) => (
+                      <Button
+                        key={currency}
+                        variant="contained"
+                        onClick={() => handleButtonClick(currency)}
+                        fullWidth
+                        sx={buttonStyles(currency)}
+                        fontFamily={`Gilroy Light`}
+                        fontSize={19}
+                      >
+                        {currency}
+                      </Button>
+                    ))}
+                    {/* <Button
                       variant="contained"
                       fullWidth
                       sx={{
@@ -934,159 +925,159 @@ function Content() {
                     >
                       SOL
                     </Button> */}
-                    </div>
-                  </Grid>
-
-                  <Grid item xs={12} sm={12} md={20} mt={2}>
-                    <Box
-                      sx={{
-                        ".MuiInputBase-root": {
-                          borderRadius: "34px",
-                          border: "1px solid white",
-                          padding: "7px 0 7px 7px",
-                        },
-                        input: {
-                          padding: "10px 0 10px 6px",
-                        },
-                      }}
-                    >
-                      <TextField
-                        // value={adroxTokens}
-                        // onChange={handleAdroxChange}
-                        placeholder="Number of Adrox to buy"
-                        id="outlined-start-adornment"
-                        fullWidth
-                        sx={{ bgcolor: "transparent" }}
-                        // onChange={handleDollarChange2}
-                        onChange={
-                          selectedButton == "USDT"
-                            ? handleDollarChange2
-                            : selectedButton == "BNB"
-                            ? HandleBnbChange
-                            : selectedButton == "SOL"
-                            ? HandleSolChange
-                            : ""
-                        }
-                        fontWeight={900}
-                        fontSize={20}
-                        fontFamily={"Gilroy"}
-                        value={dollarValue}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="start">
-                              <img src={GroupIcon} alt="Group Icon" />
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                    </Box>
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={20} mt={3}>
-                    <Box
-                      sx={{
-                        ".MuiInputBase-root": {
-                          borderRadius: "34px",
-                          border: "1px solid white",
-                          padding: "7px 0 7px 7px",
-                        },
-                        input: {
-                          padding: "10px 0 10px 6px",
-                        },
-                      }}
-                    >
-                      <TextField
-                        // disabled
-                        // value={solAmount}
-                        placeholder="0  "
-                        id="outlined-start-adornment"
-                        fullWidth
-                        value={
-                          selectedButton == "USDT"
-                            ? adxValue
-                            : selectedButton == "BNB"
-                            ? bnbValue
-                            : selectedButton == "SOL"
-                            ? solValue
-                            : "0"
-                        }
-                        onChange={handleDollarChange2}
-                        // onChange={(setSelectedButton == "USDT")? handleDollarChange2 : (setSelectedButton == "BNB")? HandleBnbChange : ""}
-                        // value={adxValue}
-
-                        sx={{ bgcolor: "transparent" }}
-                        fontWeight={900}
-                        fontSize={20}
-                        fontFamily={"Gilroy"}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="start">
-                              <img
-                                src={icon1}
-                                style={{
-                                  height: "34px",
-                                  width: "40px",
-                                  borderRadius: "50%",
-                                  objectFit: "fill",
-                                }}
-                                alt="Protocol Icon"
-                              />
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                    </Box>
-                  </Grid>
+                  </div>
                 </Grid>
-                <Box
-                  display={"flex"}
-                  justifyContent={"center"}
-                  alignItems={"center"}
-                  flexDirection={"column"}
-                  gap={3}
-                  mt={4}
-                >
-                  <Button
-                    // disabled={selectedButton == "SOL"}
-                    onClick={
-                      selectedButton == "USDT"
-                        ? sendUsdtTransaction
-                        : selectedButton == "BNB"
-                        ? sendBnbTransaction
-                        : ""
-                    }
-                    variant="contained"
-                    fullWidth
+
+                <Grid item xs={12} sm={12} md={20} mt={2}>
+                  <Box
                     sx={{
-                      display: "flex",
-                      gap: "10px",
-                      borderRadius: 25,
-                      background: `linear-gradient(to right, #531085, #A102F1)`,
-                      fontWeight: "bold",
+                      ".MuiInputBase-root": {
+                        borderRadius: "34px",
+                        border: "1px solid white",
+                        padding: "7px 0 7px 7px",
+                      },
+                      input: {
+                        padding: "10px 0 10px 6px",
+                      },
                     }}
-                    fontFamily={`Gilroy Bold`}
-                    fontSize={22}
                   >
-                    {isloading
-                      ? ""
-                      : `${
-                          selectedButton == "SOL" ? "Coming Soon..." : "Buy Now"
-                        }`}
-                    {isloading ? (
-                      <TailSpin
-                        visible={true}
-                        height="30"
-                        width="30"
-                        color="white"
-                        ariaLabel="tail-spin-loading"
-                        radius="1"
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                      />
-                    ) : (
-                      <></>
-                    )}
-                  </Button>
-                  {/* <Button
+                    <TextField
+                      // value={adroxTokens}
+                      // onChange={handleAdroxChange}
+                      placeholder="Number of Adrox to buy"
+                      id="outlined-start-adornment"
+                      fullWidth
+                      sx={{ bgcolor: "transparent" }}
+                      // onChange={handleDollarChange2}
+                      onChange={
+                        selectedButton == "USDT"
+                          ? handleDollarChange2
+                          : selectedButton == "BNB"
+                          ? HandleBnbChange
+                          : selectedButton == "SOL"
+                          ? HandleSolChange
+                          : ""
+                      }
+                      fontWeight={900}
+                      fontSize={20}
+                      fontFamily={"Gilroy"}
+                      value={dollarValue}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="start">
+                            <img src={GroupIcon} alt="Group Icon" />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Box>
+                </Grid>
+                <Grid item xs={12} sm={12} md={20} mt={3}>
+                  <Box
+                    sx={{
+                      ".MuiInputBase-root": {
+                        borderRadius: "34px",
+                        border: "1px solid white",
+                        padding: "7px 0 7px 7px",
+                      },
+                      input: {
+                        padding: "10px 0 10px 6px",
+                      },
+                    }}
+                  >
+                    <TextField
+                      // disabled
+                      // value={solAmount}
+                      placeholder="0  "
+                      id="outlined-start-adornment"
+                      fullWidth
+                      value={
+                        selectedButton == "USDT"
+                          ? adxValue
+                          : selectedButton == "BNB"
+                          ? bnbValue
+                          : selectedButton == "SOL"
+                          ? solValue
+                          : "0"
+                      }
+                      onChange={handleDollarChange2}
+                      // onChange={(setSelectedButton == "USDT")? handleDollarChange2 : (setSelectedButton == "BNB")? HandleBnbChange : ""}
+                      // value={adxValue}
+
+                      sx={{ bgcolor: "transparent" }}
+                      fontWeight={900}
+                      fontSize={20}
+                      fontFamily={"Gilroy"}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="start">
+                            <img
+                              src={icon1}
+                              style={{
+                                height: "34px",
+                                width: "40px",
+                                borderRadius: "50%",
+                                objectFit: "fill",
+                              }}
+                              alt="Protocol Icon"
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Box>
+                </Grid>
+              </Grid>
+              <Box
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                flexDirection={"column"}
+                gap={3}
+                mt={4}
+              >
+                <Button
+                  // disabled={selectedButton == "SOL"}
+                  onClick={
+                    selectedButton == "USDT"
+                      ? sendUsdtTransaction
+                      : selectedButton == "BNB"
+                      ? sendBnbTransaction
+                      : ""
+                  }
+                  variant="contained"
+                  fullWidth
+                  sx={{
+                    display: "flex",
+                    gap: "10px",
+                    borderRadius: 25,
+                    background: `linear-gradient(to right, #531085, #A102F1)`,
+                    fontWeight: "bold",
+                  }}
+                  fontFamily={`Gilroy Bold`}
+                  fontSize={22}
+                >
+                  {isloading
+                    ? ""
+                    : `${
+                        selectedButton == "SOL" ? "Coming Soon..." : "Buy Now"
+                      }`}
+                  {isloading ? (
+                    <TailSpin
+                      visible={true}
+                      height="30"
+                      width="30"
+                      color="white"
+                      ariaLabel="tail-spin-loading"
+                      radius="1"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </Button>
+                {/* <Button
                   variant="outlined"
                   fullWidth
                   sx={{
@@ -1102,24 +1093,784 @@ function Content() {
                 >
                   Claim Now
                 </Button> */}
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+      <Box position={"relative"}>
+        <img
+          src={ImagePaths.Top}
+          alt="Top"
+          width="100%"
+          style={{
+            filter: "hue-rotate(15deg)",
+            mixBlendMode: "screen",
+            filter: "brightness(0.7)",
+          }}
+        />
+        <>
+          {/* <Box p={5} position={"absolute"} bottom={110} left={0} right={0}> */}
+          <Box p={5} className="about-section">
+            <Container>
+              <Box position={"relative"} top={{ md: -300, sm: -200, xs: -200 }}>
+                <Typography
+                  variant="h2"
+                  color={"#FFF"}
+                  textAlign={"center"}
+                  fontFamily={`Brolimo`}
+                  fontSize={{ md: 60, sm: 50, xs: 25 }}
+                  fontWeight={600}
+                  // data-aos="fade-in"
+                  // data-aos-duration="1000"
+                >
+                  What is ADROX?
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color={"#FFF"}
+                  textAlign={"center"}
+                  sx={{ wordBreak: "break-word" }}
+                  fontFamily={"Gilroy Light"}
+                  fontSize={{ md: 20, sm: 20, xs: 16 }}
+                  fontWeight={600}
+                  // data-aos="fade-in"
+                  // data-aos-duration="1000"
+                  mt={2}
+                >
+                  ADROX the Frontier of Future Finance, where the future of
+                  cryptocurrency meets innovative technology ADROX isn't just
+                  another digital currency; it's a comprehensive ecosystem
+                  designed to revolutionize how we engage with blockchain
+                  technology.
+                </Typography>
+                <Grid container spacing={2} mt={3}>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={4}
+                    // data-aos="zoom-out-down"
+                    // data-aos-duration="1000"
+                  >
+                    <Box
+                      display={"grid"}
+                      sx={{
+                        placeItems: {
+                          xs: "center",
+                          sm: "center",
+                          md: "inherit",
+                        },
+                      }}
+                    >
+                      <Box
+                        border={"1px solid #fff"}
+                        borderRadius={"50%"}
+                        p={1}
+                        display={"grid"}
+                        color={"#fff"}
+                        sx={{ placeItems: "center" }}
+                        width={40}
+                        height={40}
+                      >
+                        01
+                      </Box>
+                    </Box>
+                    <Typography
+                      variant="p"
+                      color={"#FFF"}
+                      display={"block"}
+                      textAlign={{ md: "left", sm: "left", xs: "center" }}
+                      fontFamily={"Gilroy Bold"}
+                      fontSize={18}
+                      fontWeight={700}
+                      mt={2}
+                    >
+                      Automation and Optimization
+                    </Typography>
+                    <Typography
+                      variant="p"
+                      color={"#FFF"}
+                      // textAlign={"left"}
+                      // position={"relative"}
+                      // top={12}
+                      display={"block"}
+                      textAlign={{ md: "left", sm: "left", xs: "center" }}
+                      fontFamily={"Gilroy Light"}
+                      fontSize={14}
+                      fontWeight={400}
+                      mt={1}
+                    >
+                      ADROX automates the management and exchange of digital
+                      assets using smart contracts and advanced algorithms
+                      optimizing resource allocation and reducing the need for
+                      manual intervention.
+                    </Typography>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={4}
+                    // data-aos="zoom-out-down"
+                    // data-aos-duration="1000"
+                  >
+                    <Box
+                      display={"grid"}
+                      sx={{
+                        placeItems: {
+                          xs: "center",
+                          sm: "center",
+                          md: "inherit",
+                        },
+                      }}
+                    >
+                      <Box
+                        border={"1px solid #fff"}
+                        borderRadius={"50%"}
+                        p={1}
+                        display={"grid"}
+                        color={"#fff"}
+                        sx={{ placeItems: "center" }}
+                        width={40}
+                        height={40}
+                      >
+                        02
+                      </Box>
+                    </Box>
+                    <Typography
+                      variant="p"
+                      color={"#FFF"}
+                      display={"block"}
+                      textAlign={{ md: "left", sm: "left", xs: "center" }}
+                      fontFamily={"Gilroy Bold"}
+                      fontSize={18}
+                      fontWeight={700}
+                      mt={2}
+                    >
+                      Decentralization
+                    </Typography>
+                    <Typography
+                      variant="p"
+                      color={"#FFF"}
+                      display={"block"}
+                      textAlign={{ md: "left", sm: "left", xs: "center" }}
+                      fontFamily={"Gilroy Light"}
+                      fontSize={14}
+                      fontWeight={400}
+                      mt={1}
+                    >
+                      Operating on blockchain technology, ADROX ensures
+                      security, transparency, and trust by enabling peer-to-peer
+                      transactions without intermediaries, thereby minimizing
+                      transaction costs and enhancing user control.
+                    </Typography>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={4}
+                    // data-aos="zoom-out-down"
+                    // data-aos-duration="1000"
+                  >
+                    <Box
+                      display={"grid"}
+                      sx={{
+                        placeItems: {
+                          xs: "center",
+                          sm: "center",
+                          md: "inherit",
+                        },
+                      }}
+                    >
+                      <Box
+                        border={"1px solid #fff"}
+                        borderRadius={"50%"}
+                        p={1}
+                        display={"grid"}
+                        color={"#fff"}
+                        sx={{ placeItems: "center" }}
+                        width={40}
+                        height={40}
+                      >
+                        03
+                      </Box>
+                    </Box>
+                    <Typography
+                      variant="p"
+                      color={"#FFF"}
+                      display={"block"}
+                      textAlign={{ md: "left", sm: "left", xs: "center" }}
+                      fontFamily={"Gilroy Bold"}
+                      fontSize={18}
+                      fontWeight={700}
+                      mt={2}
+                    >
+                      Comprehensive Asset Management
+                    </Typography>
+                    <Typography
+                      variant="p"
+                      color={"#FFF"}
+                      display={"block"}
+                      textAlign={{ md: "left", sm: "left", xs: "center" }}
+                      fontFamily={"Gilroy Light"}
+                      fontSize={14}
+                      fontWeight={400}
+                      mt={1}
+                    >
+                      ADROX provides a secure and user-friendly wallet for
+                      storing, managing, and exchanging a wide range of digital
+                      assets, supporting cross-chain compatibility and various
+                      DeFi activities like lending, borrowing, anc yield
+                      farming.
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Box>
+            </Container>
+            {/* <Box display={{ xs: "block", sm: "block", md: "block" }}>
+              <Typography
+                variant="p"
+                color={"#fff"}
+                // sx={{
+                //   background: `linear-gradient(90deg, rgba(134,106,192,1) 0%, rgba(210,122,255,1) 100%)`,
+                //   "-webkit-text-fill-color": "transparent",
+                //   "-webkit-background-clip": "text",
+                // }}
+                textAlign={"center"}
+                display={"block"}
+                // fontSize={60}
+                // fontFamily={`Brolimo`}
+                fontFamily={"Brolimo"}
+                fontSize={{ md: 60, sm: 50, xs: 25 }}
+                fontWeight={600}
+              >
+                TEAM of ADROX
+              </Typography>
+              <ProfileSection />
+            </Box> */}
+            {isMobile ? (
+              <Box>
+                {/* Mobile View Design */}
+                <Typography
+                  variant="p"
+                  color={"#fff"}
+                  textAlign={"center"}
+                  display={"block"}
+                  fontFamily={"Brolimo"}
+                  fontSize={25} // Fixed font size for mobile
+                  fontWeight={600}
+                >
+                  TEAM of ADROX
+                </Typography>
+                <ProfileSectionMobile />
+                {/* <ProfileSection /> */}
+              </Box>
+            ) : (
+              <Box display={{ xs: "none", sm: "none", md: "block" }}>
+                {/* Desktop View Design */}
+                <Typography
+                  variant="p"
+                  color={"#fff"}
+                  textAlign={"center"}
+                  display={"block"}
+                  fontFamily={"Brolimo"}
+                  fontSize={{ md: 60, sm: 50, xs: 25 }}
+                  fontWeight={600}
+                >
+                  TEAM of ADROX
+                </Typography>
+                <ProfileSection />
+              </Box>
+            )}
+          </Box>
+        </>
+      </Box>
+
+      <Box>
+        <>
+          <Box
+            bgcolor={"#fff"}
+            p={2}
+            borderRadius={"14px"}
+            position={"relative"}
+            // data-aos="fade-in"
+            // data-aos-duration="600"
+          >
+            <img
+              src={WhitePaper1}
+              alt="Full Globe"
+              width="100%"
+              style={{
+                marginTop: 12,
+                position: "absolute",
+                top: -13,
+                left: 12,
+                width: 100,
+                height: 100,
+                filter: "blur(3px)",
+              }}
+              // style={{ zIndex: 20, marginTop: "-1vw" }}
+              height="100%"
+            />
+            <img
+              src={WhitePaper2}
+              alt="Full Globe"
+              width="100%"
+              style={{
+                marginTop: 12,
+                position: "absolute",
+                bottom: -13,
+                right: 12,
+                width: 100,
+                height: 100,
+                filter: "blur(3px)",
+              }}
+              // style={{ zIndex: 20, marginTop: "-1vw" }}
+              height="100%"
+            />
+            <Typography
+              variant="p"
+              // color={
+              //   ""
+              // }
+              sx={{
+                background: `linear-gradient(90deg, rgba(134,106,192,1) 0%, rgba(210,122,255,1) 100%)`,
+                "-webkit-text-fill-color": "transparent",
+                "-webkit-background-clip": "text",
+              }}
+              textAlign={"center"}
+              display={"block"}
+              // fontSize={60}
+              // fontFamily={`Brolimo`}
+              fontFamily={"Brolimo"}
+              fontSize={{ md: 60, sm: 50, xs: 25 }}
+              fontWeight={600}
+            >
+              White Paper
+            </Typography>
+            <Typography
+              variant="body1"
+              color={"#000"}
+              fontWeight={500}
+              fontSize={{ md: 19, sm: 20, xs: 15 }}
+              fontFamily={"Gilroy Light"}
+              textAlign={"center"}
+              sx={{ wordBreak: "break-word" }}
+              px={"10%"}
+            >
+              The ADROX whitepaper is a comprehensive document that outlines the
+              technical foundation features, and vision of the Automated
+              Decentralized Resource Optimization Exchange Wallet. It details
+              how ADROX leverages blockchain technology smart contracts and
+              advanced algorithms to automate and optimize digital asset
+              management and exchanges.
+            </Typography>
+            <Box textAlign={"center"}>
+              <a href={WhitePaper} download target="_blank">
+                <Button
+                  variant="contained"
+                  sx={{
+                    borderRadius: 25,
+                    background: `linear-gradient(to right, #531085, #A102F1)`,
+                    mt: 1,
+                    fontFamily: "Gilroy Bold",
+                    letterSpacing: 1,
+                  }}
+                  fontSize={22}
+                >
+                  Read White Paper
+                </Button>
+              </a>
+            </Box>
+          </Box>
+        </>
+
+        <Box
+          mt={{ xs: 2, md: 4, sm: 2 }}
+          textAlign={"center"}
+          // data-aos="fade-in"
+          // data-aos-duration="2000"
+        >
+          <Typography
+            variant="p"
+            color={"#FFF"}
+            // fontSize={60}
+            // fontFamily={`Brolimo`}
+            fontFamily={"Brolimo"}
+            fontSize={{ md: 60, sm: 50, xs: 25 }}
+            fontWeight={600}
+          >
+            Road Map
+          </Typography>
+        </Box>
+        <img
+          src={RoadMap}
+          alt="Full Globe"
+          width="100%"
+          style={{ marginTop: 12 }}
+          // style={{ zIndex: 20, marginTop: "-1vw" }}
+          height="100%"
+          // data-aos="fade-in"
+          // data-aos-duration="2000"
+        />
+      </Box>
+      <Box className="notify-sec" my={6}>
+        <Container>
+          <Box mt={4} textAlign={"center"}>
+            <Typography
+              variant="p"
+              color={"#FFF"}
+              fontFamily={"Brolimo"}
+              fontSize={{ md: 60, sm: 50, xs: 25 }}
+              fontWeight={600}
+            >
+              How to Buy ADROX?
+            </Typography>
+          </Box>
+          <Grid container spacing={2} mt={3}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={3}
+              // data-aos="zoom-out-down"
+              // data-aos-duration="1000"
+            >
+              <Box
+                sx={{
+                  background:
+                    "linear-gradient(0deg, rgba(94,42,185,1) 0%, rgba(94,42,185,1) 67%, rgba(0,0,0,0.6) 100%)",
+                }}
+                p={4}
+                borderRadius={"10px"}
+                minHeight={{ xs: "auto", sm: "auto", md: 290 }}
+              >
+                <Box
+                  display={"grid"}
+                  sx={{
+                    placeItems: { xs: "center", sm: "center", md: "inherit" },
+                  }}
+                  textAlign={{ md: "left", sm: "left", xs: "center" }}
+                  fontFamily={"Gilroy Bold"}
+                  fontSize={18}
+                  fontWeight={700}
+                  color={"white"}
+                >
+                  Step 1
                 </Box>
+                <Typography
+                  variant="p"
+                  color={"#FFF"}
+                  display={"block"}
+                  textAlign={{ md: "left", sm: "left", xs: "center" }}
+                  fontFamily={"Gilroy Bold"}
+                  fontSize={18}
+                  fontWeight={700}
+                  mt={2}
+                  sx={{
+                    background:
+                      "linear-gradient(90deg, rgba(161,2,241,1) 0%, rgba(209,131,248,1) 60%, rgba(255,255,255,1) 100%)",
+                    "-webkit-text-fill-color": "transparent",
+                    "-webkit-background-clip": "text",
+                  }}
+                >
+                  *Connect Your Wallet*
+                </Typography>
+                <Typography
+                  variant="p"
+                  color={"#FFF"}
+                  // textAlign={"left"}
+                  // position={"relative"}
+                  // top={12}
+                  display={"block"}
+                  textAlign={{ md: "left", sm: "left", xs: "center" }}
+                  fontFamily={"Gilroy Light"}
+                  fontSize={14}
+                  fontWeight={400}
+                  mt={1}
+                >
+                  Connect your Metamask wallet to this website using the widget
+                  at the top of the page. From there you can easily buy ADROX
+                  tokens using BNB, USDT.
+                </Typography>
+              </Box>
+            </Grid>
+
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={3}
+              // data-aos="zoom-out-down"
+              // data-aos-duration="1000"
+            >
+              <Box
+                sx={{
+                  background:
+                    "linear-gradient(0deg, rgba(94,42,185,1) 0%, rgba(94,42,185,1) 67%, rgba(0,0,0,0.6) 100%)",
+                }}
+                p={4}
+                borderRadius={"10px"}
+                minHeight={{ xs: "auto", sm: "auto", md: 290 }}
+              >
+                {" "}
+                <Box
+                  display={"grid"}
+                  sx={{
+                    placeItems: { xs: "center", sm: "center", md: "inherit" },
+                  }}
+                  textAlign={{ md: "left", sm: "left", xs: "center" }}
+                  fontFamily={"Gilroy Bold"}
+                  fontSize={18}
+                  fontWeight={700}
+                  color={"white"}
+                >
+                  {" "}
+                  Step 2
+                </Box>
+                <Typography
+                  variant="p"
+                  color={"#FFF"}
+                  display={"block"}
+                  textAlign={{ md: "left", sm: "left", xs: "center" }}
+                  fontFamily={"Gilroy Bold"}
+                  fontSize={18}
+                  fontWeight={700}
+                  mt={2}
+                  sx={{
+                    background:
+                      "linear-gradient(90deg, rgba(161,2,241,1) 0%, rgba(209,131,248,1) 60%, rgba(255,255,255,1) 100%)",
+                    "-webkit-text-fill-color": "transparent",
+                    "-webkit-background-clip": "text",
+                  }}
+                >
+                  ⁠*Buy Tokens*
+                </Typography>
+                <Typography
+                  variant="p"
+                  color={"#FFF"}
+                  display={"block"}
+                  textAlign={{ md: "left", sm: "left", xs: "center" }}
+                  fontFamily={"Gilroy Light"}
+                  fontSize={14}
+                  fontWeight={400}
+                  mt={1}
+                >
+                  Go to the buy widget and enter the amount of tokens you wish
+                  to purchase. Authorize the transactions in your wallet to
+                  purchase the ADROX tokens.
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={3}
+              // data-aos="zoom-out-down"
+              // data-aos-duration="1000"
+            >
+              <Box
+                sx={{
+                  background:
+                    "linear-gradient(0deg, rgba(94,42,185,1) 0%, rgba(94,42,185,1) 67%, rgba(0,0,0,0.6) 100%)",
+                }}
+                p={4}
+                borderRadius={"10px"}
+                minHeight={{ xs: "auto", sm: "auto", md: 290 }}
+              >
+                <Box
+                  display={"grid"}
+                  sx={{
+                    placeItems: { xs: "center", sm: "center", md: "inherit" },
+                  }}
+                  textAlign={{ md: "left", sm: "left", xs: "center" }}
+                  fontFamily={"Gilroy Bold"}
+                  fontSize={18}
+                  fontWeight={700}
+                  color={"white"}
+                >
+                  Step 3
+                </Box>
+                <Typography
+                  variant="p"
+                  color={"#FFF"}
+                  display={"block"}
+                  textAlign={{ md: "left", sm: "left", xs: "center" }}
+                  fontFamily={"Gilroy Bold"}
+                  fontSize={18}
+                  fontWeight={700}
+                  mt={2}
+                  sx={{
+                    background:
+                      "linear-gradient(90deg, rgba(161,2,241,1) 0%, rgba(209,131,248,1) 60%, rgba(255,255,255,1) 100%)",
+                    "-webkit-text-fill-color": "transparent",
+                    "-webkit-background-clip": "text",
+                  }}
+                >
+                  *Verify the Purchase*
+                </Typography>
+                <Typography
+                  variant="p"
+                  color={"#FFF"}
+                  display={"block"}
+                  textAlign={{ md: "left", sm: "left", xs: "center" }}
+                  fontFamily={"Gilroy Light"}
+                  fontSize={14}
+                  fontWeight={400}
+                  mt={1}
+                >
+                  Upon completing your purchase, please copy and securely save
+                  the purchase ID. This ID will be required to claim your ADROX
+                  tokens at the conclusion of the presale. signature.
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={3}
+              // data-aos="zoom-out-down"
+              // data-aos-duration="1000"
+            >
+              <Box
+                sx={{
+                  background:
+                    "linear-gradient(0deg, rgba(94,42,185,1) 0%, rgba(94,42,185,1) 67%, rgba(0,0,0,0.6) 100%)",
+                }}
+                p={4}
+                borderRadius={"10px"}
+                minHeight={{ xs: "auto", sm: "auto", md: 290 }}
+              >
+                <Box
+                  display={"grid"}
+                  sx={{
+                    placeItems: { xs: "center", sm: "center", md: "inherit" },
+                  }}
+                  textAlign={{ md: "left", sm: "left", xs: "center" }}
+                  fontFamily={"Gilroy Bold"}
+                  fontSize={18}
+                  fontWeight={700}
+                  color={"white"}
+                >
+                  Step 4
+                </Box>
+                <Typography
+                  variant="p"
+                  color={"#FFF"}
+                  display={"block"}
+                  textAlign={{ md: "left", sm: "left", xs: "center" }}
+                  fontFamily={"Gilroy Bold"}
+                  fontSize={18}
+                  fontWeight={700}
+                  mt={2}
+                  sx={{
+                    background:
+                      "linear-gradient(90deg, rgba(161,2,241,1) 0%, rgba(209,131,248,1) 60%, rgba(255,255,255,1) 100%)",
+                    "-webkit-text-fill-color": "transparent",
+                    "-webkit-background-clip": "text",
+                  }}
+                >
+                  *Claim Tokens*
+                </Typography>
+                <Typography
+                  variant="p"
+                  color={"#FFF"}
+                  display={"block"}
+                  textAlign={{ md: "left", sm: "left", xs: "center" }}
+                  fontFamily={"Gilroy Light"}
+                  fontSize={14}
+                  fontWeight={400}
+                  mt={1}
+                >
+                  After the presale concludes, please use your purchase ID to
+                  claim your ADROX tokens. The tokens will then be transferred
+                  to your designated wallet.
+                </Typography>
               </Box>
             </Grid>
           </Grid>
         </Container>
-      </Suspense>
-
-      {/* <Suspense fallback="Loading..."> */}
-        <Part1></Part1>
-      {/* </Suspense> */}
-
-      {/* <Suspense fallback="Loading..."> */}
-        <Part2></Part2>
-      {/* </Suspense> */}
-
-      {/* <Suspense fallback="Loading..."> */}
-        <Part3></Part3>
-      {/* </Suspense> */}
+        <Container>
+          <Box
+            px={8}
+            py={2}
+            sx={{
+              ".MuiFormControl-root": {
+                borderRadius: "30px",
+              },
+              input: {
+                padding: "24px 0 24px 16px",
+              },
+            }}
+            // data-aos="fade-in"
+            // data-aos-duration="2000"
+          >
+            <Box>
+              <Typography
+                variant="h2"
+                color={"#FFF"}
+                textAlign={"center"}
+                fontWeight={600}
+                fontSize={{ md: 60, sm: 50, xs: 25 }}
+                fontFamily={"Brolimo"}
+                p={{ xs: "", sm: "", md: "0 84px" }}
+              >
+                Get notified the moment the presale is live
+              </Typography>
+              <Typography
+                variant="body1"
+                color={"#FFF"}
+                fontWeight={400}
+                fontSize={{ md: 20, sm: 20, xs: 15 }}
+                fontFamily={"Gilroy Light"}
+                textAlign={"center"}
+                sx={{ wordBreak: "break-word" }}
+                p={{ xs: "", sm: "", md: "20px 158px" }}
+              >
+                You will receive a prompt notification the moment the ADROX
+                presale becomes available ensuring you're among the first to
+                know and take action.
+              </Typography>
+              <TextField
+                placeholder="Enter the Email Address"
+                id="outlined-start-adornment"
+                sx={{ width: "100%", bgcolor: "#fff" }}
+                fontWeight={400}
+                fontSize={20}
+                fontFamily={"Gilroy"}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        sx={{
+                          borderRadius: 25,
+                          background: `linear-gradient(180deg, #A102F1 50%, #ffffff 103%)`,
+                          // padding: "8px 19px 15px 23px",
+                          marginBottom: "4px",
+                          fontWeight: 700,
+                          fontSize: { xs: 12, sm: 12, md: 20 },
+                          fontFamily: "Gilroy Bold",
+                          position: "relative",
+                          top: "2px",
+                          left: "14px",
+                        }}
+                      >
+                        Notify Me
+                      </Button>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Box>
+          </Box>
+        </Container>
+      </Box>
 
       {isModalOpen && (
         <div className="modal-overlay" onClick={handleCloseModal}>
