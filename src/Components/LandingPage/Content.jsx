@@ -40,13 +40,18 @@ import CloseIcon from "./CloseIcon";
 
 import ErrorModal from "./errorModal";
 
+import Part1 from "./contentPages/part1"
+import Part2 from "./contentPages/part2"
+import Part3 from "./contentPages/part3"
+import Part4 from "./contentPages/part4";
+
 const Container = lazy(() => import("@mui/material/Container"));
 const Box = lazy(() => import("@mui/material/Box"));
 
-const Part1 = lazy(() => import("./contentPages/part1"));
-const Part2 = lazy(() => import("./contentPages/part2"));
-const Part3 = lazy(() => import("./contentPages/part3"));
-const Part4 = lazy(() => import("./contentPages/part4"));
+// const Part1 = lazy(() => import("./contentPages/part1"));
+// const Part2 = lazy(() => import("./contentPages/part2"));
+// const Part3 = lazy(() => import("./contentPages/part3"));
+// const Part4 = lazy(() => import("./contentPages/part4"));
 
 // Polyfill Buffer for the browser
 window.Buffer = window.Buffer || Buffer;
@@ -1104,17 +1109,17 @@ function Content() {
         </Container>
       </Suspense>
 
-      <Suspense fallback="Loading...">
+      {/* <Suspense fallback="Loading..."> */}
         <Part1></Part1>
-      </Suspense>
+      {/* </Suspense> */}
 
-      <Suspense fallback="Loading...">
+      {/* <Suspense fallback="Loading..."> */}
         <Part2></Part2>
-      </Suspense>
+      {/* </Suspense> */}
 
-      <Suspense fallback="Loading...">
+      {/* <Suspense fallback="Loading..."> */}
         <Part3></Part3>
-      </Suspense>
+      {/* </Suspense> */}
 
       {isModalOpen && (
         <div className="modal-overlay" onClick={handleCloseModal}>
