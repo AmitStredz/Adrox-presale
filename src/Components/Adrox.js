@@ -13,15 +13,15 @@ import Content from './LandingPage/Content';
 function LandingPage() {
   return (
     <>
-      <Suspense fallback='Loading...'>
+      {/* <Suspense fallback='Loading...'> */}
         <NavBar />
-      </Suspense>
-      <Suspense fallback='Loading...'>
+      {/* </Suspense> */}
+      {/* <Suspense fallback='Loading...'> */}
         <Content />
-      </Suspense>
-      <Suspense fallback='Loading...'>
+      {/* </Suspense> */}
+      {/* <Suspense fallback='Loading...'> */}
         <Footer />
-      </Suspense>
+      {/* </Suspense> */}
     </>
   );
 }
