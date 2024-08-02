@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 
 function CookiesPolicy(props) {
   return (
-    <div className="p-20 bg-gradient-to-br from-[#3D2184] via-[#261046] to-[#3D2184] text-[white]">
+    <div className="p-5 sm:p-20 bg-gradient-to-br from-[#3D2184] via-[#261046] to-[#3D2184] text-[white]">
       <Helmet>
         <title>Adrox - Cookies Policy</title>
       </Helmet>
