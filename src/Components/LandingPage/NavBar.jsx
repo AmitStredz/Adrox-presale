@@ -150,7 +150,7 @@ function NavBar() {
 
   const connectTrustWallet = async () => {
     setIsConnectWalletModal(false);
-    const isTrustWallet = !!window.ethereum?.isTrust;
+    const isTrustWallet = window.ethereum?.isTrust;
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     if (isTrustWallet) {
@@ -169,7 +169,7 @@ function NavBar() {
     } else {
       setErrorText("Trust Wallet not found.");
       setIsErrorModal(true);
-      console.error("Trust Wallet not detected");
+      console.log("Trust Wallet not detected");
     }
   };
 

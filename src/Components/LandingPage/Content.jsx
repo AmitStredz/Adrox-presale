@@ -360,8 +360,8 @@ function Content() {
     if (isloading) return;
     setIsLoading(true);
 
-    if(dollarValue <= 0){
-      setErrorText("Enter a valid amount")
+    if (dollarValue <= 0) {
+      setErrorText("Enter a valid amount");
       setIsErrorModal(true);
       setIsLoading(false);
       return;
@@ -385,7 +385,8 @@ function Content() {
           );
           setIsErrorModal(true);
           console.error("No accounts found in localStorage");
-          throw new Error("No accounts found in localStorage");
+          return;
+          // throw new Error("No accounts found in localStorage");
         }
 
         console.log("1");
@@ -510,7 +511,8 @@ function Content() {
           );
           setIsErrorModal(true);
           console.error("No accounts found in localStorage");
-          throw new Error("No accounts found in localStorage");
+          return;
+          // throw new Error("No accounts found in localStorage");
         }
 
         let parsedAccounts;
@@ -568,7 +570,7 @@ function Content() {
           console.error("Error code:", error?.error);
         }
         if (error?.message) {
-            setErrorText("There was some error. Please try again later.");
+          setErrorText("There was some error. Please try again later.");
 
           setIsErrorModal(true);
           console.error("Error message:", error.message);
@@ -659,6 +661,12 @@ function Content() {
     setAdxValue(value * 0.05);
   };
 
+  const handleUSDTChange = (e) => {
+    const value = e.target.value;
+    setAdxValue(value);
+    setDollarValue(value / 0.05);
+  };
+
   const [bnbValue, setBnbValue] = useState("");
   const [bnbPrice, setBnbPrice] = useState("");
 
@@ -680,6 +688,28 @@ function Content() {
           console.log("bnbValue: ", bnbValue);
         } else {
           setBnbValue("");
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  const handleBNBToADXChange = async (e) => {
+    const value = e.target.value;
+
+    fetch("https://api.binance.com/api/v3/ticker/price?symbol=BNBUSDT")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.price);
+        setBnbPrice(data.price);
+
+        setBnbValue(value);
+        if (data.price) {
+          setDollarValue(((bnbPrice * value) / 0.05).toFixed(12));
+          console.log("bnbValue: ", bnbValue);
+        } else {
+          setDollarValue("");
         }
       })
       .catch((err) => {
@@ -942,6 +972,7 @@ function Content() {
                     }}
                   >
                     <TextField
+                      disabled={selectedButton == "SOL"}
                       // value={adroxTokens}
                       // onChange={handleAdroxChange}
                       placeholder="Number of Adrox to buy"
@@ -986,7 +1017,7 @@ function Content() {
                     }}
                   >
                     <TextField
-                      // disabled
+                      disabled={selectedButton == "SOL"}
                       // value={solAmount}
                       placeholder="0  "
                       id="outlined-start-adornment"
@@ -1000,7 +1031,13 @@ function Content() {
                           ? solValue
                           : "0"
                       }
-                      onChange={handleDollarChange2}
+                      onChange={
+                        selectedButton == "USDT"
+                          ? handleUSDTChange
+                          : selectedButton == "BNB"
+                          ? handleBNBToADXChange
+                          : ""
+                      }
                       // onChange={(setSelectedButton == "USDT")? handleDollarChange2 : (setSelectedButton == "BNB")? HandleBnbChange : ""}
                       // value={adxValue}
 
