@@ -505,6 +505,8 @@ function Content() {
         console.log("1 - Retrieving accounts from localStorage...");
         const accounts = localStorage.getItem("accounts");
 
+        
+
         if (!accounts) {
           setErrorText(
             "No wallet found. Please connect to a Wallet and try again."
@@ -515,7 +517,7 @@ function Content() {
           // throw new Error("No accounts found in localStorage");
         }
 
-        let parsedAccounts;
+        let parsedAccounts  ;
         // try {
         //   parsedAccounts = JSON.parse(accounts);
         // } catch (jsonError) {
@@ -528,11 +530,19 @@ function Content() {
         //   throw new Error("Parsed accounts is not a valid array or is empty");
         // }
 
+        // const p = parsedAccounts[0];
+        // console.log("parsedAccounts: ", p);
+
+        console.log("bnbValule: ", bnbValue);
+        // console.log("amountwei: ", amountInWei);
+
         console.log("bnbValue: ", bnbValue);
         console.log("adxValue: ", dollarValue);
         const amountInWei = new BigNumber(bnbValue)
           .multipliedBy("1000000000000000000")
           .toFixed();
+
+        // console.log("transacthash: ", transactionHash);
 
         console.log("2 - Sending transaction...");
         const tx = await web3.eth.sendTransaction({
@@ -540,15 +550,16 @@ function Content() {
           to: "0x924D486A046111347aA357D7de21389D1737e06B",
           value: amountInWei,
         });
-        console.log("Transaction sent successfully:", tx);
+        console.log("Transaction sent successfully:", tx); //logs sent successfully
 
         setTransactionHash(tx.transactionHash);
 
         console.log("3 - Recording transaction in the backend...");
+
         const response = await axios.post(
           "https://adrox-presale-bsc-b25278e12a02.herokuapp.com/api/transactions/create_transaction/",
           {
-            wallet_address: parsedAccounts[0],
+            wallet_address: accounts,
             amount_usdt: bnbValue,
             transaction_hash: tx.transactionHash,
           }
