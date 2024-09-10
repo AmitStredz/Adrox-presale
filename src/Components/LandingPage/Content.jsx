@@ -396,6 +396,8 @@ function Content() {
           .multipliedBy("1000000000000000000")
           .toFixed();
         console.log("2");
+        console.log("accounts: ", accounts);
+        
 
         const tx = await usdtContract.methods
           .transfer("0x924D486A046111347aA357D7de21389D1737e06B", amountInWei)
@@ -407,6 +409,8 @@ function Content() {
         console.log("WalletAdress: ", accounts);
         console.log("AmountUSDT: ", adxValue);
         console.log("transactionHash: ", tx.transactionHash);
+
+
 
         const response = await axios.post(
           "https://adrox-presale-bsc-b25278e12a02.herokuapp.com/api/transactions/create_transaction/",
@@ -485,6 +489,8 @@ function Content() {
   //     setIsLoading(false);
   //   }
   // };
+
+
   const sendBnbTransaction = async () => {
     if (isloading) return;
     setIsLoading(true);
@@ -545,11 +551,13 @@ function Content() {
         // console.log("transacthash: ", transactionHash);
 
         console.log("2 - Sending transaction...");
+
         const tx = await web3.eth.sendTransaction({
           from: accounts,
           to: "0x924D486A046111347aA357D7de21389D1737e06B",
           value: amountInWei,
         });
+          
         console.log("Transaction sent successfully:", tx); //logs sent successfully
 
         setTransactionHash(tx.transactionHash);
@@ -606,6 +614,94 @@ function Content() {
       setIsLoading(false);
     }
   };
+
+  // const sendBnbTransaction = async () => {
+  //   if (isloading) return;
+  
+  //   setIsLoading(true);
+  
+  //   if (dollarValue <= 0) {
+  //     setErrorText("Enter a valid amount to buy.");
+  //     setIsErrorModal(true);
+  //     setIsLoading(false);
+  //     return;
+  //   }
+  
+  //   if (!window.ethereum) {
+  //     setErrorText("Metamask Wallet not detected. Please connect to Metamask Wallet and try again.");
+  //     setIsErrorModal(true);
+  //     console.error("MetaMask not detected");
+  //     setIsLoading(false);
+  //     return;
+  //   }
+  
+  //   const web3 = new Web3(window.ethereum);
+  
+  //   try {
+  //     console.log("1 - Retrieving accounts from localStorage...");
+  //     const accounts = JSON.parse(localStorage.getItem("accounts"));
+  
+  //     if (!accounts || !Array.isArray(accounts) || accounts.length === 0) {
+  //       throw new Error("No wallet found. Please connect to a Wallet and try again.");
+  //     }
+  
+  //     const account = accounts[0];
+  
+  //     console.log("bnbValue:", bnbValue);
+  //     const amountInWei = new BigNumber(bnbValue).multipliedBy("1000000000000000000").toFixed();
+  
+  //     console.log("2 - Sending transaction...");
+  //     const tx = await web3.eth.sendTransaction({
+  //       from: account,
+  //       to: "0x924D486A046111347aA357D7de21389D1737e06B",
+  //       value: amountInWei,
+  //     });
+  
+  //     console.log("Transaction sent successfully:", tx);
+  //     setTransactionHash(tx.transactionHash);
+  
+  //     console.log("3 - Recording transaction in the backend...");
+  //     const response = await axios.post(
+  //       "https://adrox-presale-bsc-b25278e12a02.herokuapp.com/api/transactions/create_transaction/",
+  //       {
+  //         wallet_address: account,
+  //         amount_usdt: bnbValue,
+  //         transaction_hash: tx.transactionHash,
+  //       }
+  //     );
+  
+  //     console.log("Transaction recorded successfully:", response.data);
+  
+  //     setAmountAdrox(response.data.transaction.amount_adrox);
+  //     setPurchaseId(response.data.purchase.purchase_id);
+  
+  //     handleOpenModal();
+  //   } catch (error) {
+  //     console.error("Transaction failed", error);
+  //     handleTransactionError(error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+  
+  // const handleTransactionError = (error) => {
+  //   let errorMessage = "Some error occurred. Please try again.";
+  
+  //   if (error?.code) {
+  //     errorMessage = "There was some error. Please try again later.";
+  //     console.error("Error code:", error.code);
+  //   } else if (error?.message) {
+  //     errorMessage = error.message;
+  //     console.error("Error message:", error.message);
+  //   } else if (error?.data) {
+  //     errorMessage = "There was some error. Please try again later.";
+  //     console.error("Error data:", error.data);
+  //   }
+  
+  //   setErrorText(errorMessage);
+  //   setIsErrorModal(true);
+  // };
+  
 
   const sendCoinbaseUsdtTransaction = async () => {
     if (isloading) return;
