@@ -320,7 +320,7 @@ function NavBar() {
           >
             <Box>
               <img src={ImagePaths.Logo.default} alt="ADROX" className="logo" />
-            </Box>   
+            </Box>
 
             <div
               style={{
@@ -349,7 +349,10 @@ function NavBar() {
                     walletAddress.slice(-5)
                   : "Connect Wallet"}
               </Button> */}
-              {!isConnected ? (
+
+
+              {/* this is the actual button */}
+              {/* {!isConnected ? (
                 <Button
                   onClick={() => setIsConnectWalletModal(!isConnectWalletModal)}
                   className="connectWalletButton"
@@ -364,11 +367,7 @@ function NavBar() {
                 >
                   {" "}
                   Connect Wallet
-                  {/* {walletAddress
-                      ? walletAddress.slice(0, 5) +
-                        "....." +
-                        walletAddress.slice(-5)
-                      : "Connect Wallet"} */}
+                  
                 </Button>
               ) : (
                 <Button
@@ -389,7 +388,7 @@ function NavBar() {
                       walletAddress.slice(-5)
                     : "Connect Wallet"}
                 </Button>
-              )}
+              )} */}
 
               <IconButton
                 color="inherit"
@@ -477,7 +476,9 @@ function NavBar() {
                         walletAddress.slice(-5)
                       : "Connect Wallet"}
                   </Button> */}
-                {!isConnected ? (
+
+                {/* this is the actual button */}
+                {/* {!isConnected ? (
                   <Button
                     onClick={() =>
                       setIsConnectWalletModal(!isConnectWalletModal)
@@ -491,11 +492,7 @@ function NavBar() {
                     }}
                   >
                     Connect Wallet
-                    {/* {walletAddress
-                      ? walletAddress.slice(0, 5) +
-                        "....." +
-                        walletAddress.slice(-5)
-                      : "Connect Wallet"} */}
+                    
                   </Button>
                 ) : (
                   <Button
@@ -514,7 +511,7 @@ function NavBar() {
                         walletAddress.slice(-5)
                       : "Connect Wallet"}
                   </Button>
-                )}
+                )} */}
                 <a
                   href="https://www.instagram.com/adroxmarket/"
                   target="_blank"

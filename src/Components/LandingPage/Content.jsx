@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
+import { Navigate, useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
@@ -25,7 +26,7 @@ import ProtoColIcon from "../../Assets/Protocol Icon.svg";
 import USDTIcon from "../../Assets/usdt.jpg";
 import BNBIcon from "../../Assets/bnb.jpg";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
-
+import EarnWithAdrox from "../../Assets/EarnWithAdrox.png";
 // import {
 //   Connection,
 //   PublicKey,
@@ -335,6 +336,11 @@ function Content() {
     "Some error occurred. Please try again later."
   );
 
+  const navigate = useNavigate();
+
+  const handleImgClick = () => {
+    window.open("https://adrox.vercel.app");
+  };
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -397,7 +403,6 @@ function Content() {
           .toFixed();
         console.log("2");
         console.log("accounts: ", accounts);
-        
 
         const tx = await usdtContract.methods
           .transfer("0x924D486A046111347aA357D7de21389D1737e06B", amountInWei)
@@ -409,8 +414,6 @@ function Content() {
         console.log("WalletAdress: ", accounts);
         console.log("AmountUSDT: ", adxValue);
         console.log("transactionHash: ", tx.transactionHash);
-
-
 
         const response = await axios.post(
           "https://adrox-presale-bsc-b25278e12a02.herokuapp.com/api/transactions/create_transaction/",
@@ -490,7 +493,6 @@ function Content() {
   //   }
   // };
 
-
   const sendBnbTransaction = async () => {
     if (isloading) return;
     setIsLoading(true);
@@ -511,8 +513,6 @@ function Content() {
         console.log("1 - Retrieving accounts from localStorage...");
         const accounts = localStorage.getItem("accounts");
 
-        
-
         if (!accounts) {
           setErrorText(
             "No wallet found. Please connect to a Wallet and try again."
@@ -523,7 +523,7 @@ function Content() {
           // throw new Error("No accounts found in localStorage");
         }
 
-        let parsedAccounts  ;
+        let parsedAccounts;
         // try {
         //   parsedAccounts = JSON.parse(accounts);
         // } catch (jsonError) {
@@ -557,7 +557,7 @@ function Content() {
           to: "0x924D486A046111347aA357D7de21389D1737e06B",
           value: amountInWei,
         });
-          
+
         console.log("Transaction sent successfully:", tx); //logs sent successfully
 
         setTransactionHash(tx.transactionHash);
@@ -617,16 +617,16 @@ function Content() {
 
   // const sendBnbTransaction = async () => {
   //   if (isloading) return;
-  
+
   //   setIsLoading(true);
-  
+
   //   if (dollarValue <= 0) {
   //     setErrorText("Enter a valid amount to buy.");
   //     setIsErrorModal(true);
   //     setIsLoading(false);
   //     return;
   //   }
-  
+
   //   if (!window.ethereum) {
   //     setErrorText("Metamask Wallet not detected. Please connect to Metamask Wallet and try again.");
   //     setIsErrorModal(true);
@@ -634,32 +634,32 @@ function Content() {
   //     setIsLoading(false);
   //     return;
   //   }
-  
+
   //   const web3 = new Web3(window.ethereum);
-  
+
   //   try {
   //     console.log("1 - Retrieving accounts from localStorage...");
   //     const accounts = JSON.parse(localStorage.getItem("accounts"));
-  
+
   //     if (!accounts || !Array.isArray(accounts) || accounts.length === 0) {
   //       throw new Error("No wallet found. Please connect to a Wallet and try again.");
   //     }
-  
+
   //     const account = accounts[0];
-  
+
   //     console.log("bnbValue:", bnbValue);
   //     const amountInWei = new BigNumber(bnbValue).multipliedBy("1000000000000000000").toFixed();
-  
+
   //     console.log("2 - Sending transaction...");
   //     const tx = await web3.eth.sendTransaction({
   //       from: account,
   //       to: "0x924D486A046111347aA357D7de21389D1737e06B",
   //       value: amountInWei,
   //     });
-  
+
   //     console.log("Transaction sent successfully:", tx);
   //     setTransactionHash(tx.transactionHash);
-  
+
   //     console.log("3 - Recording transaction in the backend...");
   //     const response = await axios.post(
   //       "https://adrox-presale-bsc-b25278e12a02.herokuapp.com/api/transactions/create_transaction/",
@@ -669,12 +669,12 @@ function Content() {
   //         transaction_hash: tx.transactionHash,
   //       }
   //     );
-  
+
   //     console.log("Transaction recorded successfully:", response.data);
-  
+
   //     setAmountAdrox(response.data.transaction.amount_adrox);
   //     setPurchaseId(response.data.purchase.purchase_id);
-  
+
   //     handleOpenModal();
   //   } catch (error) {
   //     console.error("Transaction failed", error);
@@ -683,10 +683,10 @@ function Content() {
   //     setIsLoading(false);
   //   }
   // };
-  
+
   // const handleTransactionError = (error) => {
   //   let errorMessage = "Some error occurred. Please try again.";
-  
+
   //   if (error?.code) {
   //     errorMessage = "There was some error. Please try again later.";
   //     console.error("Error code:", error.code);
@@ -697,11 +697,10 @@ function Content() {
   //     errorMessage = "There was some error. Please try again later.";
   //     console.error("Error data:", error.data);
   //   }
-  
+
   //   setErrorText(errorMessage);
   //   setIsErrorModal(true);
   // };
-  
 
   const sendCoinbaseUsdtTransaction = async () => {
     if (isloading) return;
@@ -903,10 +902,11 @@ function Content() {
     >
       <Container>
         <Grid
-          container
+          // container
           spacing={3}
           className="top-sectio"
           position={"relative"}
+          paddingBottom={40}
         >
           <Box
             position={"absolute"}
@@ -935,38 +935,42 @@ function Content() {
           >
             <img src={Planet} alt="" />
           </Box>
-          <Grid item xs={12} md={6} className="heroContent">
-            <Box
-              display={"grid"}
-              sx={{
-                img: {
-                  height: { xs: 60, sm: "auto", md: "auto" },
-                },
-                placeItems: { xs: "center", sm: "center", md: "inherit" },
-              }}
-              // data-aos="fade-in"
-              //               data-aos-duration="1000"
-            >
-              <img src={ImagePaths.Text.default} alt="ADROX" className="" />
-            </Box>
-            <Typography
-              component={"h5"}
-              fontSize={30}
-              textAlign={{ xs: "center", sm: "center", md: "left" }}
-              textTransform={"capitalize"}
-              sx={{ wordSpacing: "4px", letterSpacing: "2px" }}
-              pt={1}
-              color={"#fff"}
-              fontFamily={`Gilroy Light`}
-              marginTop={"25px"}
-              fontWeight={489}
-              // data-aos="fade-in"
-              // data-aos-duration="1000"
-            >
-              Automated Decentralized Resource Optimization Exchange Wallet
-            </Typography>
+          <Grid item xs={12} md={6} className="">
+            <div>
+              <Box
+                display={"grid"}
+                sx={{
+                  img: {
+                    height: { xs: 60, sm: "auto", md: "auto" },
+                  },
+                  placeItems: { xs: "center", sm: "center", md: "inherit" },
+                }}
+                // data-aos="fade-in"
+                //               data-aos-duration="1000"
+              >
+                <img src={ImagePaths.Text.default} alt="ADROX" className="" />
+              </Box>
+            </div>
+            <div>
+              <Typography
+                component={"h5"}
+                fontSize={40}
+                textAlign={{ xs: "center", sm: "center", md: "left" }}
+                textTransform={"capitalize"}
+                sx={{ wordSpacing: "4px", letterSpacing: "2px" }}
+                pt={1}
+                color={"#fff"}
+                fontFamily={`Gilroy Light`}
+                marginTop={"25px"}
+                fontWeight={489}
+                // data-aos="fade-in"
+                // data-aos-duration="1000"
+              >
+                Automated Decentralized Resource Optimization Exchange Wallet
+              </Typography>
+            </div>
           </Grid>
-          <Grid item xs={12} md={6}>
+          {/* <Grid item xs={12} md={6}>
             <Box
               border={"1px solid #fff"}
               borderRadius={8}
@@ -1019,49 +1023,7 @@ function Content() {
                         {currency}
                       </Button>
                     ))}
-                    {/* <Button
-                      variant="contained"
-                      fullWidth
-                      sx={{
-                        borderRadius: 25,
-                        border: "solid 0.1px",
-                        background: "transparent"
-                        // background: `linear-gradient(to right, #531085, #A102F1)`,
-                      }}
-                      fontFamily={`Gilroy Light`}
-                      fontSize={19}
-                    >
-                      USDT
-                    </Button>
-                    <Button
-                      variant="contained"
-                      fullWidth
-                      sx={{
-                        borderRadius: 25,
-                        border: "solid 0.1px",
-                        background: "transparent"
-                        // background: `linear-gradient(to right, #531085, #A102F1)`,
-                      }}
-                      fontFamily={`Gilroy Light`}
-                      fontSize={19}
-                    >
-                     BNB
-                    </Button>
-                    <Button
-                      variant="contained"
-                      fullWidth
-                      onClick={handleButtonClick}
-                      sx={{
-                        borderRadius: 25,
-                        border: "solid 0.1px",
-                        background: "transparent"
-                        // background: `linear-gradient(to right, #531085, #A102F1)`,
-                      }}
-                      fontFamily={`Gilroy Light`}
-                      fontSize={19}
-                    >
-                      SOL
-                    </Button> */}
+                    
                   </div>
                 </Grid>
 
@@ -1221,25 +1183,10 @@ function Content() {
                     <></>
                   )}
                 </Button>
-                {/* <Button
-                  variant="outlined"
-                  fullWidth
-                  sx={{
-                    borderRadius: 25,
-                    border: "1px solid #8f05d8",
-                    color: "#8f05d8",
-                    // border: "1px solid #8f05d8",
-                    // color: "##8f05d8",
-                    fontWeight: "bold",
-                  }}
-                  fontFamily={`Gilroy Bold`}
-                  fontSize={22}
-                >
-                  Claim Now
-                </Button> */}
+                
               </Box>
             </Box>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
       <Box position={"relative"}>
@@ -1471,7 +1418,21 @@ function Content() {
                     </Typography>
                   </Grid>
                 </Grid>
+
+                <div className="flex w-full justify-center max-sm:mt-10 sm:p-20">
+                  <img
+                    src={EarnWithAdrox}
+                    alt="EarnWithAdrox"
+                    className="sm:w-[70%]  cursor-pointer hover:scale-105 transition-all"
+                    onClick={() => handleImgClick()}
+                  />
+                </div>
+
+                {/* <div>Hello World</div> */}
               </Box>
+              {/* <div>
+                <img src={EarnWithAdrox} alt="" />
+              </div> */}
             </Container>
             {/* <Box display={{ xs: "block", sm: "block", md: "block" }}>
               <Typography
@@ -1494,8 +1455,13 @@ function Content() {
               </Typography>
               <ProfileSection />
             </Box> */}
+
+            {/* <div>
+              <img src={EarnWithAdrox} alt="" />
+            </div> */}
+
             {isMobile ? (
-              <Box>
+              <Box className="-mt-40">
                 {/* Mobile View Design */}
                 <Typography
                   variant="p"
@@ -1512,7 +1478,10 @@ function Content() {
                 {/* <ProfileSection /> */}
               </Box>
             ) : (
-              <Box display={{ xs: "none", sm: "none", md: "block" }}>
+              <Box
+                display={{ xs: "none", sm: "none", md: "block" }}
+                className="-mt-80"
+              >
                 {/* Desktop View Design */}
                 <Typography
                   variant="p"
