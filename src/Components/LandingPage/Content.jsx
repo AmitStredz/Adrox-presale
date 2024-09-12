@@ -1189,7 +1189,7 @@ function Content() {
           </Grid> */}
         </Grid>
       </Container>
-      <Box position={"relative"}>
+      <Box position={"relative"} className="max-sm:-mt-60">
         <img
           src={ImagePaths.Top}
           alt="Top"
@@ -1202,7 +1202,7 @@ function Content() {
         />
         <>
           {/* <Box p={5} position={"absolute"} bottom={110} left={0} right={0}> */}
-          <Box p={5} className="about-section">
+          <Box p={5} className="about-section ">
             <Container>
               <Box position={"relative"} top={{ md: -300, sm: -200, xs: -200 }}>
                 <Typography
