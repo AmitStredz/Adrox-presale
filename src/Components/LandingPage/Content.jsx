@@ -339,7 +339,7 @@ function Content() {
   const navigate = useNavigate();
 
   const handleImgClick = () => {
-    window.open("https://adrox.vercel.app");
+    window.open("http://adrox.net/market");
   };
   const handleOpenModal = () => {
     setIsModalOpen(true);
